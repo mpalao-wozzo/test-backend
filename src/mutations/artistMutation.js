@@ -16,6 +16,21 @@ const createArtist = {
   },
 };
 
+const deleteArtist = {
+  type: new GraphQLNonNull(ArtistModel),
+  args: {
+    artistId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { user, userRole }) {
+    if (user && isAdminOrMore(userRole)) {
+      return artistActions.deleteArtist(args.artistId);
+    }
+    return unauthorized();
+  },
+
+};
+
 export default {
   createArtist,
+  deleteArtist,
 };

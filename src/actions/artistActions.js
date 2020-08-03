@@ -16,7 +16,19 @@ const createArtist = (artist) =>
     }
   });
 
+const deleteArtist = (artistId) =>
+  new Promise((resolve, reject) => {
+    artistFunctions.findByQueryAndUpdate({ _id: artistId }, { deleted: true })
+      .then((artistUpdated) => {
+        resolve(artistUpdated);
+      })
+      .catch((artistUpdatedError) => {
+        reject(artistUpdatedError);
+      });
+  });
+
 export default {
   ...artistFunctions,
   createArtist,
+  deleteArtist,
 };
