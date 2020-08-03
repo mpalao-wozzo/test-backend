@@ -8,3 +8,12 @@ export const cleanSearchText = (text) =>
 
 export const isBoolean = (elem) => 'boolean' === typeof elem;
 export const isFunction = (elem) => 'function' === typeof elem;
+export const checkIfAllPropertiesExist = (object, model) => {
+  let valid = true;
+  Object.keys(model?.schema?.obj).forEach((key) => {
+    if (!!model?.schema?.obj[key]?.required && model.schema.obj[key].default === undefined) {
+      valid = null !== object[key] && object[key] !== undefined ? true && valid : false;
+    }
+  });
+  return true;
+};
