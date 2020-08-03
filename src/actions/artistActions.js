@@ -27,8 +27,23 @@ const deleteArtist = (artistId) =>
       });
   });
 
+const updateArtist = (artistId, artist) =>
+  new Promise((resolve, reject) => {
+    if (!checkIfAllRequiredPropertiesExist(artist, artistModel)) {
+      reject(WRONG_PARAMS);
+    } else {
+      artistFunctions.findByQueryAndUpdate({ _id: artistId }, artist)
+        .then((artistUpdated) => {
+          resolve(artistUpdated);
+        })
+        .catch((artistUpdatedError) => {
+          reject(artistUpdatedError);
+        });
+    }
+  });
 export default {
   ...artistFunctions,
   createArtist,
   deleteArtist,
+  updateArtist,
 };
