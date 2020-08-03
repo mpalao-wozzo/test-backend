@@ -3,9 +3,11 @@ import image from './imageActions';
 import user from './userActions';
 import userRole from './userRoleActions';
 import refreshToken from './refreshTokenActions';
+import artist from './artistActions';
 
 export const errorActions = error;
 export const imageActions = image;
 export const userActions = user;
 export const userRoleActions = userRole;
 export const refreshTokenActions = refreshToken;
+export const artistActions = artist;
