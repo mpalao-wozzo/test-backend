@@ -64,7 +64,7 @@ const updateArtist = (artistId, artist) =>
     if (!areRequiredParamsValid(artist, artistModel)) {
       reject(WRONG_PARAMS);
     } else {
-      artistFunctions.update({ _id: artistId }, artist)
+      artistFunctions.update(artistId, artist)
         .then((artistUpdated) => {
           resolve(artistUpdated);
         })
