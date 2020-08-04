@@ -8,3 +8,20 @@ export const cleanSearchText = (text) =>
 
 export const isBoolean = (elem) => 'boolean' === typeof elem;
 export const isFunction = (elem) => 'function' === typeof elem;
+
+/**
+ * This function will check the sent object against the mongoose model required fields and validate the object.
+ * @param {object} object to validate
+ * @param {model}  model Mongoose model
+ * @returns true if valid, false if invalid
+ */
+
+export const areRequiredParamsValid = (object, model) => {
+  let valid = true;
+  Object.keys(model?.schema?.obj).forEach((key) => {
+    if (!!model?.schema?.obj[key]?.required && model.schema.obj[key].default === undefined) {
+      valid = null !== object[key] && object[key] !== undefined ? true && valid : false;
+    }
+  });
+  return true;
+};
