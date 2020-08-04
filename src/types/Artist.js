@@ -3,7 +3,7 @@ import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLBoo
 export const ArtistInput = new GraphQLInputObjectType({
   name: 'ArtistInput',
   fields: () => ({
-    _id: { type: new GraphQLNonNull(GraphQLID) },
+    _id: { type: GraphQLID },
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
     active: { type: GraphQLBoolean },
