@@ -11,8 +11,12 @@ const createArtist = (artist) =>
       reject(WRONG_PARAMS);
     } else {
       artistFunctions.create(artist)
-        .then((cretatedArtist) => { resolve(cretatedArtist); })
-        .catch((createdArtistError) => { reject(createdArtistError); });
+        .then((cretatedArtist) => {
+          resolve(cretatedArtist);
+        })
+        .catch((createdArtistError) => {
+          reject(createdArtistError);
+        });
     }
   });
 
