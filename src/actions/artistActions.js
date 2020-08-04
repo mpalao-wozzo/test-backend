@@ -22,7 +22,7 @@ const createArtist = (artist) =>
 
 const deleteArtist = (artistId) =>
   new Promise((resolve, reject) => {
-    artistFunctions.findByQueryAndUpdate({ _id: artistId }, { deleted: true })
+    artistFunctions.update({ _id: artistId }, { deleted: true })
       .then((artistUpdated) => {
         resolve(artistUpdated);
       })
@@ -64,7 +64,7 @@ const updateArtist = (artistId, artist) =>
     if (!areRequiredParamsValid(artist, artistModel)) {
       reject(WRONG_PARAMS);
     } else {
-      artistFunctions.findByQueryAndUpdate({ _id: artistId }, artist)
+      artistFunctions.update({ _id: artistId }, artist)
         .then((artistUpdated) => {
           resolve(artistUpdated);
         })
