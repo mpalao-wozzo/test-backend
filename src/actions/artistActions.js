@@ -1,13 +1,13 @@
 import artistModel from '../models/artist';
 import baseFunctionsGenerator from './base/baseFunctions';
-import { checkIfAllRequiredPropertiesExist } from '../utils/helpers';
+import { areRequiredParamsValid } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 
 const artistFunctions = baseFunctionsGenerator(artistModel);
 
 const createArtist = (artist) =>
   new Promise((resolve, reject) => {
-    if (!checkIfAllRequiredPropertiesExist(artist, artistModel)) {
+    if (!areRequiredParamsValid(artist, artistModel)) {
       reject(WRONG_PARAMS);
     } else {
       artistFunctions.create(artist)
@@ -49,7 +49,7 @@ const findManyArtistsByFilter = (filter = {}) =>
 
 const updateArtist = (artistId, artist) =>
   new Promise((resolve, reject) => {
-    if (!checkIfAllRequiredPropertiesExist(artist, artistModel)) {
+    if (!areRequiredParamsValid(artist, artistModel)) {
       reject(WRONG_PARAMS);
     } else {
       artistFunctions.findByQueryAndUpdate({ _id: artistId }, artist)
