@@ -1,7 +1,7 @@
 import { GraphQLNonNull, GraphQLID } from 'graphql';
+import { artistActions } from '../actions';
 import { ArtistModel, ArtistInputModel } from '../types';
 import { isAdminOrMore, unauthorized } from '../context';
-import { artistActions } from '../actions';
 
 const createArtist = {
   type: new GraphQLNonNull(ArtistModel),
