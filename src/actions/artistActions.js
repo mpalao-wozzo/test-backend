@@ -31,19 +31,27 @@ const deleteArtist = (artistId) =>
       });
   });
 
-const findOneArtistByFilter = (filter = {}) =>
-  new Promise((resolve, reject) => {
-    artistFunctions.findOneByQuery(filter)
-      .then((artist) => {
-        resolve(artist);
-      }).catch((aritstEror) => {
-        reject(aritstEror);
-      });
-  });
-
 const findManyArtistsByFilter = (filter = {}) =>
   new Promise((resolve, reject) => {
-    artistFunctions.findByQuery(filter)
+    const query = {};
+
+    if (filter._id) {
+      query._id = filter._id;
+    }
+
+    if (filter.name) {
+      query.name = filter.name;
+    }
+
+    if (filter.active || false === filter.active) {
+      query.active = filter.active;
+    }
+
+    if (filter.deleted || false === filter.deleted) {
+      query.deleted = filter.deleted;
+    }
+
+    artistFunctions.findByQuery(query)
       .then((artists) => {
         resolve(artists);
       }).catch((aritstsEror) => {
@@ -69,7 +77,6 @@ export default {
   ...artistFunctions,
   createArtist,
   deleteArtist,
-  findOneArtistByFilter,
   findManyArtistsByFilter,
   updateArtist,
 };
