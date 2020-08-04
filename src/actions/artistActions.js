@@ -27,6 +27,26 @@ const deleteArtist = (artistId) =>
       });
   });
 
+const findOneArtistByFilter = (filter = {}) =>
+  new Promise((resolve, reject) => {
+    artistFunctions.findOneByQuery(filter)
+      .then((artist) => {
+        resolve(artist);
+      }).catch((aritstEror) => {
+        reject(aritstEror);
+      });
+  });
+
+const findManyArtistsByFilter = (filter = {}) =>
+  new Promise((resolve, reject) => {
+    artistFunctions.findByQuery(filter)
+      .then((artists) => {
+        resolve(artists);
+      }).catch((aritstsEror) => {
+        reject(aritstsEror);
+      });
+  });
+
 const updateArtist = (artistId, artist) =>
   new Promise((resolve, reject) => {
     if (!checkIfAllRequiredPropertiesExist(artist, artistModel)) {
@@ -45,5 +65,7 @@ export default {
   ...artistFunctions,
   createArtist,
   deleteArtist,
+  findOneArtistByFilter,
+  findManyArtistsByFilter,
   updateArtist,
 };

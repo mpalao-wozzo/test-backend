@@ -3,6 +3,7 @@ import errorQuery from './errorQuery';
 import refreshTokenQuery from './refreshTokenQuery';
 import userQuery from './userQuery';
 import userRoleQuery from './userRoleQuery';
+import artistQuery from './artistQuery';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -11,5 +12,6 @@ export default new GraphQLObjectType({
     ...refreshTokenQuery,
     ...userQuery,
     ...userRoleQuery,
+    ...artistQuery,
   },
 });
