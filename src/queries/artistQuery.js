@@ -12,7 +12,7 @@ const artists = {
     active: { type: GraphQLBoolean },
   },
   resolve(parent, args, { user, userRole }) {
-    return artistActions.findManyArtistsByFilter({ ...args });
+    return artistActions.findManyArtistsByFilter(args);
   },
 };
 
