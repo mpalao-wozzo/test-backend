@@ -3,7 +3,7 @@ import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLBoo
 export const ArtistInput = new GraphQLInputObjectType({
   name: 'ArtistInput',
   fields: () => ({
-    _id: { type: GraphQLID },
+    _id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
     active: { type: GraphQLBoolean },
@@ -14,7 +14,7 @@ export const ArtistInput = new GraphQLInputObjectType({
 export default new GraphQLObjectType({
   name: 'Artist',
   fields: () => ({
-    _id: { type: GraphQLID },
+    _id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
     active: { type: new GraphQLNonNull(GraphQLBoolean) },
