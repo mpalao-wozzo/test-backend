@@ -22,7 +22,7 @@ const createArtist = (artist) =>
 
 const deleteArtist = (artistId) =>
   new Promise((resolve, reject) => {
-    artistFunctions.update({ _id: artistId }, { deleted: true })
+    artistFunctions.update(artistId, { deleted: true })
       .then((artistUpdated) => {
         resolve(artistUpdated);
       })
