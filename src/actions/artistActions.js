@@ -54,8 +54,8 @@ const findManyArtistsByFilter = (filter = {}) =>
     artistFunctions.findByQuery(query)
       .then((artists) => {
         resolve(artists);
-      }).catch((aritstsEror) => {
-        reject(aritstsEror);
+      }).catch((aritstsError) => {
+        reject(aritstsError);
       });
   });
 
