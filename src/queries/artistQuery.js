@@ -8,7 +8,7 @@ const artists = {
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
-    delete: { type: GraphQLBoolean },
+    deleted: { type: GraphQLBoolean },
     active: { type: GraphQLBoolean },
   },
   resolve(parent, args, { user, userRole }) {

@@ -20,17 +20,6 @@ const createArtist = (artist) =>
     }
   });
 
-const deleteArtist = (artistId) =>
-  new Promise((resolve, reject) => {
-    artistFunctions.update(artistId, { deleted: true })
-      .then((artistUpdated) => {
-        resolve(artistUpdated);
-      })
-      .catch((artistUpdatedError) => {
-        reject(artistUpdatedError);
-      });
-  });
-
 const findManyArtistsByFilter = (filter = {}) =>
   new Promise((resolve, reject) => {
     const query = {};
@@ -54,17 +43,18 @@ const findManyArtistsByFilter = (filter = {}) =>
     artistFunctions.findByQuery(query)
       .then((artists) => {
         resolve(artists);
-      }).catch((aritstsError) => {
+      })
+      .catch((aritstsError) => {
         reject(aritstsError);
       });
   });
 
-const updateArtist = (artistId, artist) =>
+const updateArtist = (artist) =>
   new Promise((resolve, reject) => {
     if (!areRequiredParamsValid(artist, artistModel)) {
       reject(WRONG_PARAMS);
     } else {
-      artistFunctions.update(artistId, artist)
+      artistFunctions.update(artist._id, artist)
         .then((artistUpdated) => {
           resolve(artistUpdated);
         })
@@ -76,7 +66,6 @@ const updateArtist = (artistId, artist) =>
 export default {
   ...artistFunctions,
   createArtist,
-  deleteArtist,
   findManyArtistsByFilter,
   updateArtist,
 };

@@ -23,22 +23,59 @@ const deleteArtist = {
   },
   resolve(parent, args, { user, userRole }) {
     if (user && isAdminOrMore(userRole)) {
-      return artistActions.deleteArtist(args.artistId);
+      return artistActions.update(args.artistId, { deleted: true });
     }
     return unauthorized();
   },
+};
 
+const disableArtist = {
+  type: new GraphQLNonNull(ArtistModel),
+  args: {
+    artistId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    if (args.artistId && isAdminOrMore(userRole)) {
+      return artistActions.update(args.artistId, { active: false });
+    }
+    return unauthorized();
+  },
+};
+
+const enableArtist = {
+  type: new GraphQLNonNull(ArtistModel),
+  args: {
+    artistId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    if (args.artistId && isAdminOrMore(userRole)) {
+      return artistActions.update(args.artistId, { active: true });
+    }
+    return unauthorized();
+  },
+};
+
+const restoreArtist = {
+  type: new GraphQLNonNull(ArtistModel),
+  args: {
+    artistId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    if (args.artistId && isAdminOrMore(userRole)) {
+      return artistActions.update(args.artistId, { deleted: false });
+    }
+    return unauthorized();
+  },
 };
 
 const updateArtist = {
   type: new GraphQLNonNull(ArtistModel),
   args: {
-    artistId: { type: new GraphQLNonNull(GraphQLID) },
     artist: { type: new GraphQLNonNull(ArtistInputModel) },
   },
   resolve(parent, args, { user, userRole }) {
     if (user && isAdminOrMore(userRole)) {
-      return artistActions.updateArtist(args.artistId, args.artist);
+      return artistActions.updateArtist(args.artist);
     }
     return unauthorized();
   },
@@ -47,5 +84,8 @@ const updateArtist = {
 export default {
   createArtist,
   deleteArtist,
+  disableArtist,
+  enableArtist,
+  restoreArtist,
   updateArtist,
 };
