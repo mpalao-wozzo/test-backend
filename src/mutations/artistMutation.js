@@ -2,7 +2,6 @@ import { GraphQLNonNull, GraphQLID } from 'graphql';
 import { artistActions } from '../actions';
 import { ArtistModel, ArtistInputModel } from '../types';
 import { isAdminOrMore, unauthorized, isSuperadmin } from '../context';
-import artistModel from '../models/artist';
 
 const createArtist = {
   type: new GraphQLNonNull(ArtistModel),
@@ -31,7 +30,7 @@ const deleteArtist = {
 };
 
 const disableArtist = {
-  type: new GraphQLNonNull(artistModel),
+  type: new GraphQLNonNull(ArtistModel),
   args: {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
@@ -44,7 +43,7 @@ const disableArtist = {
 };
 
 const enableArtist = {
-  type: new GraphQLNonNull(artistModel),
+  type: new GraphQLNonNull(ArtistModel),
   args: {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
@@ -57,7 +56,7 @@ const enableArtist = {
 };
 
 const restoreArtist = {
-  type: new GraphQLNonNull(artistModel),
+  type: new GraphQLNonNull(ArtistModel),
   args: {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
