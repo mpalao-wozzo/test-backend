@@ -24,7 +24,7 @@ const deleteArtist = {
   },
   resolve(parent, args, { user, userRole }) {
     if (user && isAdminOrMore(userRole)) {
-      return artistActions.deleteArtist(args.artistId);
+      return artistActions.update(args.artistId, { deleted: true });
     }
     return unauthorized();
   },
@@ -56,6 +56,19 @@ const enableArtist = {
   },
 };
 
+const restoreArtist = {
+  type: new GraphQLNonNull(artistModel),
+  args: {
+    artistId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    if (args.artistId && isSuperadmin(userRole)) {
+      return artistActions.update(args.artistId, { deleted: false });
+    }
+    return unauthorized();
+  },
+};
+
 const updateArtist = {
   type: new GraphQLNonNull(ArtistModel),
   args: {
@@ -74,5 +87,6 @@ export default {
   deleteArtist,
   disableArtist,
   enableArtist,
+  restoreArtist,
   updateArtist,
 };

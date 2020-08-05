@@ -20,17 +20,6 @@ const createArtist = (artist) =>
     }
   });
 
-const deleteArtist = (artistId) =>
-  new Promise((resolve, reject) => {
-    artistFunctions.update(artistId, { deleted: true })
-      .then((artistUpdated) => {
-        resolve(artistUpdated);
-      })
-      .catch((artistUpdatedError) => {
-        reject(artistUpdatedError);
-      });
-  });
-
 const findManyArtistsByFilter = (filter = {}) =>
   new Promise((resolve, reject) => {
     const query = {};
@@ -77,7 +66,6 @@ const updateArtist = (artist) =>
 export default {
   ...artistFunctions,
   createArtist,
-  deleteArtist,
   findManyArtistsByFilter,
   updateArtist,
 };
