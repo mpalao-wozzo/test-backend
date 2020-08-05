@@ -17,7 +17,7 @@ export default new GraphQLObjectType({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
-    active: { type: new GraphQLNonNull(GraphQLBoolean) },
-    deleted: { type: new GraphQLNonNull(GraphQLBoolean) },
+    active: { type: GraphQLBoolean },
+    deleted: { type: GraphQLBoolean },
   }),
 });
