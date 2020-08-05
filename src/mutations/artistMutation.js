@@ -33,12 +33,11 @@ const deleteArtist = {
 const updateArtist = {
   type: new GraphQLNonNull(ArtistModel),
   args: {
-    artistId: { type: new GraphQLNonNull(GraphQLID) },
     artist: { type: new GraphQLNonNull(ArtistInputModel) },
   },
   resolve(parent, args, { user, userRole }) {
     if (user && isAdminOrMore(userRole)) {
-      return artistActions.updateArtist(args.artistId, args.artist);
+      return artistActions.updateArtist(args.artist);
     }
     return unauthorized();
   },

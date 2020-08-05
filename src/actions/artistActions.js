@@ -54,17 +54,18 @@ const findManyArtistsByFilter = (filter = {}) =>
     artistFunctions.findByQuery(query)
       .then((artists) => {
         resolve(artists);
-      }).catch((aritstsError) => {
+      })
+      .catch((aritstsError) => {
         reject(aritstsError);
       });
   });
 
-const updateArtist = (artistId, artist) =>
+const updateArtist = (artist) =>
   new Promise((resolve, reject) => {
     if (!areRequiredParamsValid(artist, artistModel)) {
       reject(WRONG_PARAMS);
     } else {
-      artistFunctions.update(artistId, artist)
+      artistFunctions.update(artist._id, artist)
         .then((artistUpdated) => {
           resolve(artistUpdated);
         })
