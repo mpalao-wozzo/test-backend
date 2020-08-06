@@ -9,10 +9,9 @@ const createMusicGender = {
     musicGender: { type: new GraphQLNonNull(MusicGenderInputModel) },
   },
   resolve(parent, args, { userRole }) {
-    if (isAdminOrMore(userRole)) {
-      return musicGenderActions.createMusicGender(args.musicGender);
-    }
-    return unauthorized();
+    return isAdminOrMore(userRole) ?
+      musicGenderActions.createMusicGender(args.musicGender) :
+      unauthorized();
   },
 };
 
@@ -22,10 +21,9 @@ const deleteMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (isAdminOrMore(userRole)) {
-      return musicGenderActions.update(args.musicGenderId, { deleted: true });
-    }
-    return unauthorized();
+    return isAdminOrMore(userRole) ?
+      musicGenderActions.update(args.musicGenderId, { deleted: true }) :
+      unauthorized();
   },
 };
 
@@ -35,10 +33,9 @@ const disableMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (isAdminOrMore(userRole)) {
-      return musicGenderActions.update(args.musicGenderId, { active: false });
-    }
-    return unauthorized();
+    return isAdminOrMore(userRole) ?
+      musicGenderActions.update(args.musicGenderId, { active: false }) :
+      unauthorized();
   },
 };
 
@@ -48,10 +45,9 @@ const enableMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (isAdminOrMore(userRole)) {
-      return musicGenderActions.update(args.musicGenderId, { active: true });
-    }
-    return unauthorized();
+    return isAdminOrMore(userRole) ?
+      musicGenderActions.update(args.musicGenderId, { active: true }) :
+      unauthorized();
   },
 };
 
@@ -61,10 +57,9 @@ const restoreMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (isAdminOrMore(userRole)) {
-      return musicGenderActions.update(args.musicGenderId, { deleted: false });
-    }
-    return unauthorized();
+    return isAdminOrMore(userRole) ?
+      musicGenderActions.update(args.musicGenderId, { deleted: false }) :
+      unauthorized();
   },
 };
 
@@ -74,10 +69,9 @@ const updateMusicGender = {
     musicGender: { type: new GraphQLNonNull(MusicGenderInputModel) },
   },
   resolve(parent, args, { userRole }) {
-    if (isAdminOrMore(userRole)) {
-      return musicGenderActions.updateMusicGender(args.musicGender);
-    }
-    return unauthorized();
+    return isAdminOrMore(userRole) ?
+      musicGenderActions.updateMusicGender(args.musicGender) :
+      unauthorized();
   },
 };
 

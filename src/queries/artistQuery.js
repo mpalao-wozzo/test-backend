@@ -1,6 +1,7 @@
 import { GraphQLList, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
 import { artistActions } from '../actions';
 import { ArtistModel } from '../types';
+import { isAdminOrMore, unauthorized } from '../context';
 
 const artists = {
   type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ArtistModel))),
@@ -11,8 +12,10 @@ const artists = {
     deleted: { type: GraphQLBoolean },
     active: { type: GraphQLBoolean },
   },
-  resolve(parent, args) {
-    return artistActions.findManyArtistsByFilter(args);
+  resolve(parent, args, { userRole }) {
+    return (isAdminOrMore(userRole)) ?
+      artistActions.findManyArtistsByFilter(args) :
+      unauthorized();
   },
 };
 

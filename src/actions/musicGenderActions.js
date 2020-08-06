@@ -51,7 +51,7 @@ const findManyMusicGendersByFilter = ({ _id, name, active, deleted }) =>
 
 const updateMusicGender = (musicGender) =>
   new Promise((resolve, reject) => {
-    if (!isObjectEmpty(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel) || !musicGender._id) {
+    if (isObjectEmpty(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel) || !musicGender._id) {
       reject(WRONG_PARAMS);
     } else {
       musicGenderFunctions.update(musicGender._id, musicGender)
