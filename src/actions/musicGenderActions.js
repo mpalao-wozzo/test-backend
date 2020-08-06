@@ -20,24 +20,24 @@ const createMusicGender = (musicGender) =>
     }
   });
 
-const findManyMusicGendersByFilter = (filter = {}) =>
+const findManyMusicGendersByFilter = ({ _id, name, active, deleted }) =>
   new Promise((resolve, reject) => {
     const query = {};
 
-    if (filter._id) {
-      query._id = filter._id;
+    if (_id) {
+      query._id = _id;
     }
 
-    if (filter.name) {
-      query.name = filter.name;
+    if (name) {
+      query.name = name;
     }
 
-    if (filter.active || false === filter.active) {
-      query.active = filter.active;
+    if (active || false === active) {
+      query.active = active;
     }
 
-    if (filter.deleted || false === filter.deleted) {
-      query.deleted = filter.deleted;
+    if (deleted || false === deleted) {
+      query.deleted = deleted;
     }
 
     musicGenderFunctions.findByQuery(query)
