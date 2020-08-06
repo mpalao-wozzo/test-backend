@@ -20,7 +20,23 @@ const createMusicGender = (musicGender) =>
     }
   });
 
+const updateMusicGender = (musicGender) =>
+  new Promise((resolve, reject) => {
+    if (!isObjectValid(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel) || !musicGender._id) {
+      reject(WRONG_PARAMS);
+    } else {
+      musicGenderFunctions.update(musicGender._id, musicGender)
+        .then((updatedMusicGender) => {
+          resolve(updatedMusicGender);
+        })
+        .catch((updatedMusicGenderError) => {
+          reject(updatedMusicGenderError);
+        });
+    }
+  });
+
 export default {
   ...musicGenderFunctions,
   createMusicGender,
+  updateMusicGender,
 };

@@ -16,6 +16,20 @@ const createMusicGender = {
   },
 };
 
+const updateMusicGender = {
+  type: new GraphQLNonNull(MusicGenderModel),
+  args: {
+    musicGender: { type: new GraphQLNonNull(MusicGenderInputModel) },
+  },
+  resolve(parent, args, { userRole }) {
+    if (isAdminOrMore(userRole)) {
+      return musicGenderActions.updateMusicGender(args.musicGender);
+    }
+    return unauthorized();
+  },
+};
+
 export default {
   createMusicGender,
+  updateMusicGender,
 };
