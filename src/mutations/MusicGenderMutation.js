@@ -1,7 +1,7 @@
 import { GraphQLNonNull, GraphQLID } from 'graphql';
+import { isAdminOrMore, unauthorized } from '../context';
 import { musicGenderActions } from '../actions';
 import { MusicGenderModel, MusicGenderInputModel } from '../types';
-import { isAdminOrMore, unauthorized } from '../context';
 
 const createMusicGender = {
   type: new GraphQLNonNull(MusicGenderModel),
