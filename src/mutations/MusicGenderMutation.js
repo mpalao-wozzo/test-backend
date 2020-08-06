@@ -22,7 +22,7 @@ const deleteMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.musicGenderId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return musicGenderActions.update(args.musicGenderId, { deleted: true });
     }
     return unauthorized();
@@ -35,7 +35,7 @@ const disableMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.musicGenderId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return musicGenderActions.update(args.musicGenderId, { active: false });
     }
     return unauthorized();
@@ -48,7 +48,7 @@ const enableMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.musicGenderId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return musicGenderActions.update(args.musicGenderId, { active: true });
     }
     return unauthorized();
@@ -61,7 +61,7 @@ const restoreMusicGender = {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.musicGenderId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return musicGenderActions.update(args.musicGenderId, { deleted: false });
     }
     return unauthorized();
