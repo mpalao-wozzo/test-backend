@@ -62,7 +62,7 @@ const restoreMusicGender = {
   },
   resolve(parent, args, { userRole }) {
     if (args.musicGenderId && isAdminOrMore(userRole)) {
-      return musicGenderActions.update(args.musicGenderId, { delted: false });
+      return musicGenderActions.update(args.musicGenderId, { deleted: false });
     }
     return unauthorized();
   },
