@@ -1,7 +1,7 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLInputObjectType } from 'graphql';
 
-export const GenderInput = new GraphQLInputObjectType({
-  name: 'GenderInput',
+export const MusicGenderInput = new GraphQLInputObjectType({
+  name: 'MusicGenderInput',
   fields: () => ({
     _id: { type: GraphQLID },
     name: { type: new GraphQLNonNull(GraphQLString) },
@@ -11,7 +11,7 @@ export const GenderInput = new GraphQLInputObjectType({
 });
 
 export default new GraphQLObjectType({
-  name: 'Gender',
+  name: 'MusicGender',
   fields: () => ({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
