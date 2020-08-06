@@ -1,21 +1,20 @@
 import { GraphQLList, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
-import { artistActions } from '../actions';
-import { ArtistModel } from '../types';
+import { musicGenderActions } from '../actions';
+import { MusicGenderModel } from '../types';
 
-const artists = {
-  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ArtistModel))),
+const musicGenders = {
+  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(MusicGenderModel))),
   args: {
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
-    description: { type: GraphQLString },
     deleted: { type: GraphQLBoolean },
     active: { type: GraphQLBoolean },
   },
   resolve(parent, args) {
-    return artistActions.findManyArtistsByFilter(args);
+    return musicGenderActions.findManyMusicGendersByFilter(args);
   },
 };
 
 export default {
-  artists,
+  musicGenders,
 };

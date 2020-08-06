@@ -73,8 +73,8 @@ const updateArtist = {
   args: {
     artist: { type: new GraphQLNonNull(ArtistInputModel) },
   },
-  resolve(parent, args, { user, userRole }) {
-    if (user && isAdminOrMore(userRole)) {
+  resolve(parent, args, { userRole }) {
+    if (isAdminOrMore(userRole)) {
       return artistActions.updateArtist(args.artist);
     }
     return unauthorized();
