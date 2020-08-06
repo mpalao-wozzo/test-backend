@@ -25,3 +25,11 @@ export const areRequiredParamsValid = (object, model) => {
   });
   return true;
 };
+
+/**
+ * This function will check if the sent object is valid.The object will be valid if it is not null or undefined and has at least one property.
+ * @param {object} object to validate
+ * @returns true if valid, false if invalid
+ */
+
+export const isObjectValid = (object) => !!(object && Object.keys(object).length);
