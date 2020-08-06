@@ -20,6 +20,35 @@ const createMusicGender = (musicGender) =>
     }
   });
 
+const findManyMusicGendersByFilter = (filter = {}) =>
+  new Promise((resolve, reject) => {
+    const query = {};
+
+    if (filter._id) {
+      query._id = filter._id;
+    }
+
+    if (filter.name) {
+      query.name = filter.name;
+    }
+
+    if (filter.active || false === filter.active) {
+      query.active = filter.active;
+    }
+
+    if (filter.deleted || false === filter.deleted) {
+      query.deleted = filter.deleted;
+    }
+
+    musicGenderFunctions.findByQuery(query)
+      .then((musicGenders) => {
+        resolve(musicGenders);
+      })
+      .catch((musicGendersError) => {
+        reject(musicGendersError);
+      });
+  });
+
 const updateMusicGender = (musicGender) =>
   new Promise((resolve, reject) => {
     if (!isObjectValid(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel) || !musicGender._id) {
@@ -38,5 +67,6 @@ const updateMusicGender = (musicGender) =>
 export default {
   ...musicGenderFunctions,
   createMusicGender,
+  findManyMusicGendersByFilter,
   updateMusicGender,
 };
