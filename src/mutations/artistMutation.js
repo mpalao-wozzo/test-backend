@@ -8,8 +8,8 @@ const createArtist = {
   args: {
     artist: { type: new GraphQLNonNull(ArtistInputModel) },
   },
-  resolve(parent, args, { user, userRole }) {
-    if (user && isAdminOrMore(userRole)) {
+  resolve(parent, args, { userRole }) {
+    if (isAdminOrMore(userRole)) {
       return artistActions.createArtist(args.artist);
     }
     return unauthorized();
@@ -21,8 +21,8 @@ const deleteArtist = {
   args: {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parent, args, { user, userRole }) {
-    if (user && isAdminOrMore(userRole)) {
+  resolve(parent, args, { userRole }) {
+    if (args.artistId && isAdminOrMore(userRole)) {
       return artistActions.update(args.artistId, { deleted: true });
     }
     return unauthorized();

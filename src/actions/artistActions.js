@@ -1,7 +1,7 @@
-import artistModel from '../models/artist';
-import baseFunctionsGenerator from './base/baseFunctions';
 import { areRequiredParamsValid } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
+import artistModel from '../models/artist';
+import baseFunctionsGenerator from './base/baseFunctions';
 
 const artistFunctions = baseFunctionsGenerator(artistModel);
 
