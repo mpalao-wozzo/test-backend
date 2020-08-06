@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from 'graphql';
 import artistQuery from './artistQuery';
 import errorQuery from './errorQuery';
-import musicGenderQuery from './musicGender';
+import genreQuery from './genreQuery';
 import refreshTokenQuery from './refreshTokenQuery';
 import userQuery from './userQuery';
 import userRoleQuery from './userRoleQuery';
@@ -11,7 +11,7 @@ export default new GraphQLObjectType({
   fields: {
     ...artistQuery,
     ...errorQuery,
-    ...musicGenderQuery,
+    ...genreQuery,
     ...refreshTokenQuery,
     ...userQuery,
     ...userRoleQuery,

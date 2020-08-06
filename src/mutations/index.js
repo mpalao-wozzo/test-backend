@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from 'graphql';
 import artistMutation from './artistMutation';
 import errorMutation from './errorMutation';
-import musicGenderMutation from './musicGenderMutation';
+import genreMutation from './genreMutation';
 import userMutation from './userMutation';
 import userRoleMutation from './userRoleMutation';
 
@@ -10,7 +10,7 @@ export default new GraphQLObjectType({
   fields: {
     ...artistMutation,
     ...errorMutation,
-    ...musicGenderMutation,
+    ...genreMutation,
     ...userMutation,
     ...userRoleMutation,
   },
