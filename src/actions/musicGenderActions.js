@@ -1,4 +1,4 @@
-import { areRequiredParamsValid, isObjectValid } from '../utils/helpers';
+import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import baseFunctionsGenerator from './base/baseFunctions';
 import musicGenderModel from '../models/musicGender';
@@ -7,7 +7,7 @@ const musicGenderFunctions = baseFunctionsGenerator(musicGenderModel);
 
 const createMusicGender = (musicGender) =>
   new Promise((resolve, reject) => {
-    if (!isObjectValid(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel)) {
+    if (isObjectEmpty(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel)) {
       reject(WRONG_PARAMS);
     } else {
       musicGenderFunctions.create(musicGender)
@@ -51,7 +51,7 @@ const findManyMusicGendersByFilter = (filter = {}) =>
 
 const updateMusicGender = (musicGender) =>
   new Promise((resolve, reject) => {
-    if (!isObjectValid(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel) || !musicGender._id) {
+    if (!isObjectEmpty(musicGender) || !areRequiredParamsValid(musicGender, musicGenderModel) || !musicGender._id) {
       reject(WRONG_PARAMS);
     } else {
       musicGenderFunctions.update(musicGender._id, musicGender)
