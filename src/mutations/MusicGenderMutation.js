@@ -16,7 +16,7 @@ const createMusicGender = {
   },
 };
 
-const disableMusicGender = {
+const deleteMusicGender = {
   type: new GraphQLNonNull(MusicGenderModel),
   args: {
     musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
@@ -27,7 +27,19 @@ const disableMusicGender = {
     }
     return unauthorized();
   },
+};
 
+const disableMusicGender = {
+  type: new GraphQLNonNull(MusicGenderModel),
+  args: {
+    musicGenderId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    if (args.musicGenderId && isAdminOrMore(userRole)) {
+      return musicGenderActions.update(args.musicGenderId, { active: false });
+    }
+    return unauthorized();
+  },
 };
 
 const updateMusicGender = {
@@ -45,6 +57,7 @@ const updateMusicGender = {
 
 export default {
   createMusicGender,
+  deleteMusicGender,
   disableMusicGender,
   updateMusicGender,
 };
