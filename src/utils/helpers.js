@@ -23,5 +23,13 @@ export const areRequiredParamsValid = (object, model) => {
       valid = null !== object[key] && object[key] !== undefined ? true && valid : false;
     }
   });
-  return true;
+  return valid;
 };
+
+/**
+ * This function will check if the sent object is empty.The object will be empty if it is null, undefined or {}.
+ * @param {object} object to validate
+ * @returns true if empty, false if not empty
+ */
+
+export const isObjectEmpty = (object) => !(object && Object.keys(object).length);

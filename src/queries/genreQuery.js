@@ -1,24 +1,23 @@
 import { GraphQLList, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
-import { artistActions } from '../actions';
-import { ArtistModel } from '../types';
+import { genreActions } from '../actions';
+import { GenreModel } from '../types';
 import { isAdminOrMore, unauthorized } from '../context';
 
-const artists = {
-  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ArtistModel))),
+const genres = {
+  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GenreModel))),
   args: {
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
-    description: { type: GraphQLString },
     deleted: { type: GraphQLBoolean },
     active: { type: GraphQLBoolean },
   },
   resolve(parent, args, { userRole }) {
     return (isAdminOrMore(userRole)) ?
-      artistActions.findManyArtistsByFilter(args) :
-      unauthorized();
+      genreActions.findManyGenresByFilter(args) :
+      unauthorized;
   },
 };
 
 export default {
-  artists,
+  genres,
 };
