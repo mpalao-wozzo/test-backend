@@ -22,7 +22,7 @@ const deleteArtist = {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.artistId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return artistActions.update(args.artistId, { deleted: true });
     }
     return unauthorized();
@@ -35,7 +35,7 @@ const disableArtist = {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.artistId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return artistActions.update(args.artistId, { active: false });
     }
     return unauthorized();
@@ -48,7 +48,7 @@ const enableArtist = {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.artistId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return artistActions.update(args.artistId, { active: true });
     }
     return unauthorized();
@@ -61,7 +61,7 @@ const restoreArtist = {
     artistId: { type: new GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { userRole }) {
-    if (args.artistId && isAdminOrMore(userRole)) {
+    if (isAdminOrMore(userRole)) {
       return artistActions.update(args.artistId, { deleted: false });
     }
     return unauthorized();
