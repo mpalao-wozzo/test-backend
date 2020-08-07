@@ -72,7 +72,29 @@ const findManySongsByFilter = ({ _id, name, artistId, genreId, releaseDate, albu
       });
   });
 
+const updateSong = (imgUrl, songUrl, song) =>
+  new Promise((resolve, reject) => {
+    if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel) || !song._id) {
+      reject(WRONG_PARAMS);
+    } else {
+      imageActions.getImageUrl(imgUrl)
+        .then((newImgUrl) => {
+          imageActions.getImageUrl(songUrl)
+            .then((newSongUrl) => {
+              songFunctions.update(song._id, { ...song, imgUrl: newImgUrl || song.imgUrl, songUrl: newSongUrl || song.songUrl })
+                .then((createdSong) => {
+                  resolve(createdSong);
+                })
+                .catch((createdSongError) => {
+                  reject(createdSongError);
+                });
+            });
+        });
+    }
+  });
+
 export default {
   createSong,
   findManySongsByFilter,
+  updateSong,
 };

@@ -18,6 +18,21 @@ const createSong = {
   },
 };
 
+const updateSong = {
+  type: new GraphQLNonNull(SongModel),
+  args: {
+    song: { type: new GraphQLNonNull(SongInputModel) },
+    imgUrl: { type: GraphQLUpload },
+    songUrl: { type: GraphQLUpload },
+  },
+  resolve(parent, args, { userRole }) {
+    return isAdminOrMore(userRole) ?
+      songActions.updateSong(args.imgUrl, args.songUrl, song) :
+      unauthorized();
+  },
+};
+
 export default {
   createSong,
+  updateSong,
 };
