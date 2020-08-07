@@ -26,7 +26,7 @@ const uploadImage = (image) =>
  * Will upload the image and if there is no image will resolve to null
  * @param {*} image
  */
-const getImageUrl = (image) => new Promise((resolve, reject) => {
+const getUrl = (image) => new Promise((resolve, reject) => {
   if (!image) {
     resolve();
   } else if (image && 'function' === typeof image.then) {
@@ -61,7 +61,7 @@ const uploadImages = (images) =>
       };
       let index = 0;
       images.forEach((image) => {
-        getImageUrl(image)
+        getUrl(image)
           .then((url) => {
             index++;
             response.urls.push(url);
@@ -81,7 +81,7 @@ const uploadImages = (images) =>
   });
 
 const imageActions = {
-  getImageUrl,
+  getImageUrl: getUrl,
   uploadImage,
   uploadImages,
 };
