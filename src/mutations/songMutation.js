@@ -30,6 +30,18 @@ const deleteSong = {
   },
 };
 
+const restoreSong = {
+  type: new GraphQLNonNull(SongModel),
+  args: {
+    songId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    return isAdminOrMore(userRole) ?
+      songActions.updateSong(args.songId, { deleted: false }) :
+      unauthorized();
+  },
+};
+
 const updateSong = {
   type: new GraphQLNonNull(SongModel),
   args: {
@@ -46,6 +58,7 @@ const updateSong = {
 
 export default {
   createSong,
-  updateSong,
   deleteSong,
+  restoreSong,
+  updateSong,
 };
