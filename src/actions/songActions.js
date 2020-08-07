@@ -15,7 +15,7 @@ const createSong = (imgUrl, songUrl, song) =>
         .then((newImgUrl) => {
           imageActions.getImageUrl(songUrl)
             .then((newSongUrl) => {
-              songFunctions.create({ ...song, imgUrl: newImgUrl || song.imgUrl, songUrl: newSongUrl || song.songUrl })
+              songFunctions.create({ ...song, imgUrl: newImgUrl, songUrl: newSongUrl })
                 .then((createdSong) => {
                   resolve(createdSong);
                 })
