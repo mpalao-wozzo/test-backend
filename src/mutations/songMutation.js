@@ -42,6 +42,18 @@ const disableSong = {
   },
 };
 
+const enableSong = {
+  type: new GraphQLNonNull(SongModel),
+  args: {
+    songId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    return isAdminOrMore(userRole) ?
+      songActions.updateSong(args.songId, { active: true }) :
+      unauthorized();
+  },
+};
+
 const restoreSong = {
   type: new GraphQLNonNull(SongModel),
   args: {
@@ -72,6 +84,7 @@ export default {
   createSong,
   deleteSong,
   disableSong,
+  enableSong,
   restoreSong,
   updateSong,
 };
