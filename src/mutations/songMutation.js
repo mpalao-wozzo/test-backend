@@ -1,8 +1,8 @@
-import { GraphQLUpload } from 'apollo-server';
 import { GraphQLNonNull, GraphQLID } from 'graphql';
+import { GraphQLUpload } from 'apollo-server';
+import { isAdminOrMore, unauthorized } from '../context';
 import { songActions } from '../actions';
 import { SongModel, SongInputModel } from '../types';
-import { isAdminOrMore, unauthorized } from '../context';
 
 const createSong = {
   type: new GraphQLNonNull(SongModel),
@@ -26,6 +26,18 @@ const deleteSong = {
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
       songActions.updateSong(args.songId, { deleted: true }) :
+      unauthorized();
+  },
+};
+
+const disableSong = {
+  type: new GraphQLNonNull(SongModel),
+  args: {
+    songId: { type: new GraphQLNonNull(GraphQLID) },
+  },
+  resolve(parent, args, { userRole }) {
+    return isAdminOrMore(userRole) ?
+      songActions.updateSong(args.songId, { active: false }) :
       unauthorized();
   },
 };
@@ -59,6 +71,7 @@ const updateSong = {
 export default {
   createSong,
   deleteSong,
+  disableSong,
   restoreSong,
   updateSong,
 };
