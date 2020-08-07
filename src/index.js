@@ -15,11 +15,13 @@ import schema from './schema';
 import context from './context';
 import { DATE_AND_HOUR_FORMAT } from './utils/constants';
 import { errorActions } from './actions';
+import { setAmazonConfig } from './utils/amazon';
 
 const app = express();
 env.config({ path: path.join(__dirname, '../.env') });
 const cfg = conf(process.env.NODE_ENV || 'development');
 const port = process.env.PORT || 5000;
+setAmazonConfig();
 
 // Conexion a BBDD
 const DbOptions = {
