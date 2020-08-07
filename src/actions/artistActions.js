@@ -1,4 +1,4 @@
-import { areRequiredParamsValid } from '../utils/helpers';
+import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import artistModel from '../models/artist';
 import baseFunctionsGenerator from './base/baseFunctions';
@@ -51,7 +51,7 @@ const findManyArtistsByFilter = ({ _id, name, active, deleted }) =>
 
 const updateArtist = (artist) =>
   new Promise((resolve, reject) => {
-    if (!areRequiredParamsValid(artist, artistModel)) {
+    if (isObjectEmpty || !areRequiredParamsValid(artist, artistModel) || !artist._id) {
       reject(WRONG_PARAMS);
     } else {
       artistFunctions.update(artist._id, artist)
