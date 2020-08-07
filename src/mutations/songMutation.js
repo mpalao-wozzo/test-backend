@@ -13,7 +13,7 @@ const createSong = {
   },
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.createArtist(args.imgUrl, args.songUrl, args.song) :
+      songActions.createSong(args.imgUrl, args.songUrl, args.song) :
       unauthorized();
   },
 };
