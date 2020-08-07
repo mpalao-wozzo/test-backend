@@ -20,8 +20,8 @@ export default new GraphQLObjectType({
   fields: () => ({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
-    imgUrl: { type: new GraphQLNonNull(GraphQLString) },
-    songUrl: { type: new GraphQLNonNull(GraphQLString) },
+    imgUrl: { type: GraphQLString },
+    songUrl: { type: GraphQLString },
     artistId: { type: new GraphQLNonNull(GraphQLID) },
     genreId: { type: new GraphQLNonNull(GraphQLID) },
     releaseDate: { type: new GraphQLNonNull(GraphQLString) },
