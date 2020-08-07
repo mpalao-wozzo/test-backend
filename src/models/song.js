@@ -6,7 +6,7 @@ const songSchema = new Schema({
   songUrl: { type: String, maxlength: 1000 },
   artistId: { type: Schema.Types.ObjectId, ref: 'Artist', required: true },
   genreId: { type: Schema.Types.ObjectId, ref: 'Genre', required: true },
-  release_date: { type: Date },
+  releaseDate: { type: String },
   album: { type: String, trim: true, maxlength: 75 },
   active: { type: Boolean, default: true, require: true },
   deleted: { type: Boolean, default: false, required: true },
