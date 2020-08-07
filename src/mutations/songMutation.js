@@ -27,7 +27,7 @@ const updateSong = {
   },
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.updateSong(args.imgUrl, args.songUrl, song) :
+      songActions.updateSong(args.imgUrl, args.songUrl, args.song) :
       unauthorized();
   },
 };
