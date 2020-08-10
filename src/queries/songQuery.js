@@ -9,7 +9,7 @@ const songs = {
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
     artistId: { type: GraphQLID },
-    genretId: { type: GraphQLID },
+    genreId: { type: GraphQLID },
     releaseDate: { type: GraphQLString },
     album: { type: GraphQLString },
     deleted: { type: GraphQLBoolean },
