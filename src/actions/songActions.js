@@ -1,4 +1,4 @@
-import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
+import { areRequiredParamsValid, isObjectEmpty, isObject } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import baseFunctionsGenerator from './base/baseFunctions';
 import songModel from '../models/song';
@@ -11,9 +11,9 @@ const createSong = (imgUrl, songUrl, song) =>
     if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel)) {
       reject(WRONG_PARAMS);
     } else {
-      imageActions.getImageUrl(imgUrl)
+      imageActions.getUrl(imgUrl)
         .then((newImgUrl) => {
-          imageActions.getImageUrl(songUrl)
+          imageActions.getUrl(songUrl)
             .then((newSongUrl) => {
               songFunctions.create({ ...song, imgUrl: newImgUrl, songUrl: newSongUrl })
                 .then((createdSong) => {
@@ -77,23 +77,24 @@ const updateSong = (imgUrl, songUrl, song) =>
     if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel) || !song._id) {
       reject(WRONG_PARAMS);
     } else {
-      imageActions.getImageUrl(imgUrl)
-        .then((newImgUrl) => {
-          imageActions.getImageUrl(songUrl)
-            .then((newSongUrl) => {
-              songFunctions.update(song._id, { ...song, imgUrl: newImgUrl || song.imgUrl, songUrl: newSongUrl || song.songUrl })
-                .then((createdSong) => {
-                  resolve(createdSong);
-                })
-                .catch((createdSongError) => {
-                  reject(createdSongError);
-                });
+      Promise.all([ imageActions.getUrl(imgUrl), imageActions.getUrl(songUrl) ])
+        .then((result) => {
+          songFunctions.update(song._id, { ...song, imgUrl: result[0] || song.imgUrl, songUrl: result[1] || song.songUrl })
+            .then((createdSong) => {
+              resolve(createdSong);
+            })
+            .catch((createdSongError) => {
+              reject(createdSongError);
             });
+        })
+        .catch((errUpload) => {
+          reject(errUpload);
         });
     }
   });
 
 export default {
+  ...songFunctions,
   createSong,
   findManySongsByFilter,
   updateSong,

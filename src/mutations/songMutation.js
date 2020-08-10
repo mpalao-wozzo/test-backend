@@ -25,7 +25,7 @@ const deleteSong = {
   },
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.updateSong(args.songId, { deleted: true }) :
+      songActions.update(args.songId, { deleted: true }) :
       unauthorized();
   },
 };
@@ -37,7 +37,7 @@ const disableSong = {
   },
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.updateSong(args.songId, { active: false }) :
+      songActions.update(args.songId, { active: false }) :
       unauthorized();
   },
 };
@@ -49,7 +49,7 @@ const enableSong = {
   },
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.updateSong(args.songId, { active: true }) :
+      songActions.update(args.songId, { active: true }) :
       unauthorized();
   },
 };
@@ -61,7 +61,7 @@ const restoreSong = {
   },
   resolve(parent, args, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.updateSong(args.songId, { deleted: false }) :
+      songActions.update(args.songId, { deleted: false }) :
       unauthorized();
   },
 };
