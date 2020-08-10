@@ -8,6 +8,7 @@ export const cleanSearchText = (text) =>
 
 export const isBoolean = (elem) => 'boolean' === typeof elem;
 export const isFunction = (elem) => 'function' === typeof elem;
+export const isObject = (elem) => 'object' === typeof obj;
 
 /**
  * This function will check the sent object against the mongoose model required fields and validate the object.
