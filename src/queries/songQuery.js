@@ -10,7 +10,6 @@ const songs = {
     name: { type: GraphQLString },
     artistId: { type: GraphQLID },
     genreId: { type: GraphQLID },
-    releaseDate: { type: GraphQLString },
     album: { type: GraphQLString },
     deleted: { type: GraphQLBoolean },
     active: { type: GraphQLBoolean },

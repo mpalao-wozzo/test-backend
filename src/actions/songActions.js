@@ -24,7 +24,7 @@ const createSong = (imgUrl, songUrl, song) =>
     }
   });
 
-const findManySongsByFilter = ({ _id, name, artistId, genreId, releaseDate, album, active, deleted }) =>
+const findManySongsByFilter = ({ _id, name, artistId, genreId, album, active, deleted }) =>
   new Promise((resolve, reject) => {
     const query = {};
 
@@ -42,10 +42,6 @@ const findManySongsByFilter = ({ _id, name, artistId, genreId, releaseDate, albu
 
     if (genreId) {
       query.genreId = genreId;
-    }
-
-    if (releaseDate) {
-      query.releaseDate = releaseDate;
     }
 
     if (album) {
