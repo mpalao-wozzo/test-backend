@@ -1,4 +1,7 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLInputObjectType } from 'graphql';
+import genreActions from '../actions/genreActions';
+import artistActions from '../actions/artistActions';
+import { ArtistModel, GenreModel } from '.';
 
 export const SongInput = new GraphQLInputObjectType({
   name: 'SongInput',
@@ -22,9 +25,15 @@ export default new GraphQLObjectType({
     _id: { type: new GraphQLNonNull(GraphQLID) },
     active: { type: new GraphQLNonNull(GraphQLBoolean) },
     album: { type: new GraphQLNonNull(GraphQLString) },
-    artistId: { type: new GraphQLNonNull(GraphQLID) },
+    artist: {
+      type: new GraphQLNonNull(ArtistModel),
+      resolve: (parent) => artistActions.findById(parent.artistId),
+    },
     deleted: { type: new GraphQLNonNull(GraphQLBoolean) },
-    genreId: { type: new GraphQLNonNull(GraphQLID) },
+    genre: {
+      type: new GraphQLNonNull(GenreModel),
+      resolve: (parent) => genreActions.findById(parent.genreId),
+    },
     imgUrl: { type: GraphQLString },
     name: { type: new GraphQLNonNull(GraphQLString) },
     releaseDate: { type: new GraphQLNonNull(GraphQLString) },
