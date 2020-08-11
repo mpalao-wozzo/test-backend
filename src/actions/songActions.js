@@ -1,4 +1,4 @@
-import { areRequiredParamsValid, isObjectEmpty, isObject } from '../utils/helpers';
+import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import baseFunctionsGenerator from './base/baseFunctions';
 import songModel from '../models/song';
@@ -11,17 +11,14 @@ const createSong = (imgUrl, songUrl, song) =>
     if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel)) {
       reject(WRONG_PARAMS);
     } else {
-      imageActions.getUrl(imgUrl)
-        .then((newImgUrl) => {
-          imageActions.getUrl(songUrl)
-            .then((newSongUrl) => {
-              songFunctions.create({ ...song, imgUrl: newImgUrl, songUrl: newSongUrl })
-                .then((createdSong) => {
-                  resolve(createdSong);
-                })
-                .catch((createdSongError) => {
-                  reject(createdSongError);
-                });
+      Promise.all([ imageActions.getUrl(imgUrl), imageActions.getUrl(songUrl) ])
+        .then((result) => {
+          songFunctions.create({ ...song, imgUrl: result[0], songUrl: result[1] })
+            .then((createdSong) => {
+              resolve(createdSong);
+            })
+            .catch((createdSongError) => {
+              reject(createdSongError);
             });
         });
     }
