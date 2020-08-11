@@ -31,7 +31,7 @@ const getUrl = (element) => new Promise((resolve, reject) => {
     resolve();
   } else if (element && 'function' === typeof element.then) {
     element.then((elementObj) => {
-      imageActions.uploadImage(elementObj)
+      uploadActions.uploadElement(elementObj)
         .then((elementUrl) => {
           resolve(elementUrl);
         })
@@ -80,10 +80,10 @@ const uploadImages = (images) =>
     }
   });
 
-const imageActions = {
+const uploadActions = {
   getUrl,
-  uploadImage: uploadElement,
+  uploadElement,
   uploadImages,
 };
 
-export default imageActions;
+export default uploadActions;

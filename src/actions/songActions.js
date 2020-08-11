@@ -1,7 +1,7 @@
 import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import baseFunctionsGenerator from './base/baseFunctions';
-import imageActions from './imageActions';
+import updateActions from './updateActions';
 import songModel from '../models/song';
 
 const songFunctions = baseFunctionsGenerator(songModel);
@@ -11,7 +11,7 @@ const createSong = (imgUrl, songUrl, song) =>
     if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel)) {
       reject(WRONG_PARAMS);
     } else {
-      Promise.all([ imageActions.getUrl(imgUrl), imageActions.getUrl(songUrl) ])
+      Promise.all([ updateActions.getUrl(imgUrl), updateActions.getUrl(songUrl) ])
         .then((result) => {
           songFunctions.create({ ...song, imgUrl: result[0], songUrl: result[1] })
             .then((createdSong) => {
@@ -74,7 +74,7 @@ const updateSong = (imgUrl, songUrl, song) =>
     if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel) || !song._id) {
       reject(WRONG_PARAMS);
     } else {
-      Promise.all([ imageActions.getUrl(imgUrl), imageActions.getUrl(songUrl) ])
+      Promise.all([ updateActions.getUrl(imgUrl), updateActions.getUrl(songUrl) ])
         .then((result) => {
           songFunctions.update(song._id, { ...song, imgUrl: result[0] || song.imgUrl, songUrl: result[1] || song.songUrl })
             .then((createdSong) => {
