@@ -11,9 +11,9 @@ const createSong = {
     imgUrl: { type: GraphQLUpload },
     songUrl: { type: GraphQLUpload },
   },
-  resolve(parent, args, { userRole }) {
+  resolve(parent, { imgUrl, songUrl, song }, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.createSong(args.imgUrl, args.songUrl, args.song) :
+      songActions.createSong(imgUrl, songUrl, song) :
       unauthorized();
   },
 };
@@ -23,9 +23,9 @@ const deleteSong = {
   args: {
     songId: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parent, args, { userRole }) {
-    return isAdminOrMore(userRole) ?
-      songActions.update(args.songId, { deleted: true }) :
+  resolve(parent, { songId }, { userRole }) {
+    return isAdminOrMore(userRole) && songId ?
+      songActions.update(songId, { deleted: true }) :
       unauthorized();
   },
 };
@@ -35,9 +35,9 @@ const disableSong = {
   args: {
     songId: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parent, args, { userRole }) {
-    return isAdminOrMore(userRole) ?
-      songActions.update(args.songId, { active: false }) :
+  resolve(parent, { songId }, { userRole }) {
+    return isAdminOrMore(userRole) && songId ?
+      songActions.update(songId, { active: false }) :
       unauthorized();
   },
 };
@@ -47,9 +47,9 @@ const enableSong = {
   args: {
     songId: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parent, args, { userRole }) {
-    return isAdminOrMore(userRole) ?
-      songActions.update(args.songId, { active: true }) :
+  resolve(parent, { songId }, { userRole }) {
+    return isAdminOrMore(userRole) && songId ?
+      songActions.update(songId, { active: true }) :
       unauthorized();
   },
 };
@@ -59,9 +59,9 @@ const restoreSong = {
   args: {
     songId: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parent, args, { userRole }) {
-    return isAdminOrMore(userRole) ?
-      songActions.update(args.songId, { deleted: false }) :
+  resolve(parent, { songId }, { userRole }) {
+    return isAdminOrMore(userRole) && songId ?
+      songActions.update(songId, { deleted: false }) :
       unauthorized();
   },
 };
@@ -73,9 +73,9 @@ const updateSong = {
     imgUrl: { type: GraphQLUpload },
     songUrl: { type: GraphQLUpload },
   },
-  resolve(parent, args, { userRole }) {
+  resolve(parent, { imgUrl, songUrl, song }, { userRole }) {
     return isAdminOrMore(userRole) ?
-      songActions.updateSong(args.imgUrl, args.songUrl, args.song) :
+      songActions.updateSong(imgUrl, songUrl, song) :
       unauthorized();
   },
 };
