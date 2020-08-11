@@ -1,8 +1,8 @@
 import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import baseFunctionsGenerator from './base/baseFunctions';
-import songModel from '../models/song';
 import imageActions from './imageActions';
+import songModel from '../models/song';
 
 const songFunctions = baseFunctionsGenerator(songModel);
 

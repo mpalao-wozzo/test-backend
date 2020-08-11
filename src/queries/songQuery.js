@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
+import { isAdminOrMore, unauthorized } from '../context';
 import { songActions } from '../actions';
 import { SongModel } from '../types';
-import { isAdminOrMore, unauthorized } from '../context';
 
 const songs = {
   type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(SongModel))),

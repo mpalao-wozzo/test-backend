@@ -1,7 +1,7 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLInputObjectType } from 'graphql';
-import genreActions from '../actions/genreActions';
-import artistActions from '../actions/artistActions';
 import { ArtistModel, GenreModel } from '.';
+import artistActions from '../actions/artistActions';
+import genreActions from '../actions/genreActions';
 
 export const SongInput = new GraphQLInputObjectType({
   name: 'SongInput',
