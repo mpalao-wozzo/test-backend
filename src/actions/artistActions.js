@@ -51,7 +51,7 @@ const findManyArtistsByFilter = ({ _id, name, active, deleted }) =>
 
 const updateArtist = (artist) =>
   new Promise((resolve, reject) => {
-    if (isObjectEmpty || !areRequiredParamsValid(artist, artistModel) || !artist._id) {
+    if (isObjectEmpty(artist) || !areRequiredParamsValid(artist, artistModel) || !artist._id) {
       reject(WRONG_PARAMS);
     } else {
       artistFunctions.update(artist._id, artist)
