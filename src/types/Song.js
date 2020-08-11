@@ -36,7 +36,7 @@ export default new GraphQLObjectType({
     },
     imgUrl: { type: GraphQLString },
     name: { type: new GraphQLNonNull(GraphQLString) },
-    releaseDate: { type: new GraphQLNonNull(GraphQLString) },
+    releaseDate: { type: GraphQLString },
     songUrl: { type: GraphQLString },
   }),
 });
