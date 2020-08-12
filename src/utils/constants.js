@@ -63,3 +63,7 @@ export const LOCATION_POINT = 'Point';
 // Errors
 export const WRONG_PARAMS_METHOD = new Error('Wrong params sent to method');
 export const WRONG_PARAMS = new ValidationError('Wrong params sent');
+
+// Properties max length
+export const MAX_LENGTH_NAME = 75;
+export const MAX_LENGTH_DESCRIPTION = 1000;

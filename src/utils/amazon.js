@@ -102,6 +102,14 @@ export const uploadStream = ({ createReadStream, mimetype, filename }) =>
           .catch((sharpErr) => {
             reject(sharpErr);
           });
+      } else if ('audio' === mimetype.split('/')[0]) {
+        uploadToS3(newFileName, fileType, buffer, bucketName)
+          .then((url) => {
+            resolve(url);
+          })
+          .catch((uploadToS3Err) => {
+            reject(uploadToS3Err);
+          });
       } else {
         reject(new Error('Wrong File Type'));
       }

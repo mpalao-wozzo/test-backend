@@ -1,6 +1,7 @@
 import { GraphQLList, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLBoolean } from 'graphql';
 import { artistActions } from '../actions';
 import { ArtistModel } from '../types';
+import { cleanSearchText } from '../utils/helpers';
 import { isAdminOrMore, unauthorized } from '../context';
 
 const artists = {
@@ -19,6 +20,19 @@ const artists = {
   },
 };
 
+const searchArtists = {
+  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ArtistModel))),
+  args: {
+    filter: { type: GraphQLString },
+  },
+  resolve(parent, args, { userRole }) {
+    return (isAdminOrMore(userRole)) ?
+      artistActions.findByQuery({ name: { $regex: cleanSearchText(args.filter), $options: 'i' } }) :
+      unauthorized();
+  },
+};
+
 export default {
   artists,
+  searchArtists,
 };

@@ -2,17 +2,17 @@ import { uploadStream } from '../utils/amazon';
 import { WRONG_PARAMS } from '../utils/constants';
 
 /**
- * Uploads an image and returns the url
- * @param {Object} image
+ * Uploads an element and returns the url
+ * @param {Object} element
  * @returns url
  */
-const uploadImage = (image) =>
+const uploadElement = (element) =>
   new Promise((resolve, reject) => {
-    if (!image || !image.createReadStream || !image.mimetype || !image.filename) {
+    if (!element || !element.createReadStream || !element.mimetype || !element.filename) {
       const error = new Error('Wrong data sent');
       reject(error);
     } else {
-      uploadStream(image)
+      uploadStream(element)
         .then((url) => {
           resolve(url);
         })
@@ -23,17 +23,17 @@ const uploadImage = (image) =>
   });
 
 /**
- * Will upload the image and if there is no image will resolve to null
- * @param {*} image
+ * Will upload the element and if there is no element will resolve to null
+ * @param {*} element
  */
-const getImageUrl = (image) => new Promise((resolve, reject) => {
-  if (!image) {
+const getUrl = (element) => new Promise((resolve, reject) => {
+  if (!element) {
     resolve();
-  } else if (image && 'function' === typeof image.then) {
-    image.then((imageObj) => {
-      imageActions.uploadImage(imageObj)
-        .then((imageUrl) => {
-          resolve(imageUrl);
+  } else if (element && 'function' === typeof element.then) {
+    element.then((elementObj) => {
+      uploadActions.uploadElement(elementObj)
+        .then((elementUrl) => {
+          resolve(elementUrl);
         })
         .catch((err) => {
           reject(err);
@@ -61,7 +61,7 @@ const uploadImages = (images) =>
       };
       let index = 0;
       images.forEach((image) => {
-        getImageUrl(image)
+        getUrl(image)
           .then((url) => {
             index++;
             response.urls.push(url);
@@ -80,10 +80,10 @@ const uploadImages = (images) =>
     }
   });
 
-const imageActions = {
-  getImageUrl,
-  uploadImage,
+const uploadActions = {
+  getUrl,
+  uploadElement,
   uploadImages,
 };
 
-export default imageActions;
+export default uploadActions;
