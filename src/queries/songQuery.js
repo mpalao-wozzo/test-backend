@@ -21,6 +21,17 @@ const songs = {
   },
 };
 
+const findSongsBySearch = {
+  type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(SongModel))),
+  args: {
+    search: { type: GraphQLString },
+  },
+  resolve(parent, { search }) {
+    return songActions.findSongsBySearch(search);
+  },
+};
+
 export default {
+  findSongsBySearch,
   songs,
 };

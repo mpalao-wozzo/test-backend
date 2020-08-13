@@ -1,8 +1,10 @@
-import { areRequiredParamsValid, isObjectEmpty } from '../utils/helpers';
+import { areRequiredParamsValid, isObjectEmpty, cleanSearchText } from '../utils/helpers';
 import { WRONG_PARAMS } from '../utils/constants';
 import baseFunctionsGenerator from './base/baseFunctions';
 import uploadActions from './uploadActions';
 import songModel from '../models/song';
+import artistActions from './artistActions';
+import { genreActions, songActions } from '.';
 
 const songFunctions = baseFunctionsGenerator(songModel);
 
@@ -65,6 +67,40 @@ const findManySongsByFilter = ({ _id, name, artistId, genreId, album, active, de
       });
   });
 
+const findSongsBySearch = (search = '') =>
+  new Promise((resolve, reject) => {
+    if (search) {
+      const findByName = { name: { $regex: cleanSearchText(search), $options: 'i' } };
+      Promise.all([
+        artistActions.findByQuery(findByName),
+        genreActions.findByQuery(findByName),
+      ])
+        .then((result) => {
+          songActions.findByQuery({
+            $or: [
+              findByName,
+              { artistId: { $in: result[0].map((element) => element._id) } },
+              { genreId: { $in: result[1].map((element) => element._id) } },
+            ],
+          })
+            .then((songs) => {
+              resolve(songs);
+            })
+            .catch((songsError) => {
+              reject(songsError);
+            });
+        });
+    } else {
+      songFunctions.findAll()
+        .then((songs) => {
+          resolve(songs);
+        })
+        .catch((songsError) => {
+          reject(songsError);
+        });
+    }
+  });
+
 const updateSong = (imgUrl, songUrl, song) =>
   new Promise((resolve, reject) => {
     if (isObjectEmpty(song) || !areRequiredParamsValid(song, songModel) || !song._id) {
@@ -90,5 +126,6 @@ export default {
   ...songFunctions,
   createSong,
   findManySongsByFilter,
+  findSongsBySearch,
   updateSong,
 };
