@@ -91,13 +91,7 @@ const findSongsBySearch = (search = '') =>
             });
         });
     } else {
-      songFunctions.findAll()
-        .then((songs) => {
-          resolve(songs);
-        })
-        .catch((songsError) => {
-          reject(songsError);
-        });
+      reject(WRONG_PARAMS);
     }
   });
 
